@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behzod | Felxawv | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Playfair+Display:wght@400;700;900&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F2A1D',
+                        secondary: '#375534',
+                        accent: '#6B9071',
+                        light: '#AEC3B0',
+                        pale: '#E3EED4',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['Roboto Mono', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 5s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/css">
+        .text-stroke {
+            -webkit-text-stroke: 1px #AEC3B0;
+            color: transparent;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #0F2A1D, #6B9071);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skill-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #AEC3B0;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #6B9071;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #6B9071; }
+        }
+    </style>
+</head>
+<body class="bg-primary text-pale font-sans antialiased overflow-x-hidden">
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-primary transition-opacity duration-500">
+        <div class="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-accent"></div>
+        <span class="ml-4 text-2xl font-mono animate-pulse">Loading...</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-primary bg-opacity-90 backdrop-blur-md shadow-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold font-serif gradient-text hover:scale-105 transition-transform">Behzod<span class="text-accent">/</span>Felxawv</a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-light hover:text-pale transition-colors">Home</a>
+                    <a href="#about" class="nav-link text-light hover:text-pale transition-colors">About</a>
+                    <a href="#skills" class="nav-link text-light hover:text-pale transition-colors">Skills</a>
+                    <a href="#portfolio" class="nav-link text-light hover:text-pale transition-colors">Portfolio</a>
+                    <a href="#contact" class="nav-link text-light hover:text-pale transition-colors">Contact</a>
+                </div>
+                
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-light focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary py-4 px-6">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="nav-link text-light hover:text-pale transition-colors">Home</a>
+                <a href="#about" class="nav-link text-light hover:text-pale transition-colors">About</a>
+                <a href="#skills" class="nav-link text-light hover:text-pale transition-colors">Skills</a>
+                <a href="#portfolio" class="nav-link text-light hover:text-pale transition-colors">Portfolio</a>
+                <a href="#contact" class="nav-link text-light hover:text-pale transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 left-0 w-full h-full bg-primary opacity-90"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center opacity-20"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold font-serif mb-6 animate-fade-in">
+                <span class="gradient-text">Behzod</span>
+                <span class="text-accent mx-2">/</span>
+                <span class="text-stroke">Felxawv</span>
+            </h1>
+            
+            <div class="typewriter text-2xl md:text-4xl font-mono text-light mb-8">
+                <span>Programming & Development</span>
+            </div>
+            
+            <p class="text-lg md:text-xl max-w-2xl mx-auto text-light mb-12 animate-fade-in opacity-0" style="animation-delay: 0.5s;">
+                Crafting digital experiences with clean code and creative solutions. Turning ideas into functional, beautiful applications.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 animate-fade-in opacity-0" style="animation-delay: 0.8s;">
+                <a href="#portfolio" class="px-8 py-3 bg-accent text-primary font-bold rounded-full hover:bg-secondary hover:text-pale transition-all transform hover:scale-105 shadow-lg">
+                    View My Work
+                </a>
+                <a href="#contact" class="px-8 py-3 border-2 border-accent text-accent font-bold rounded-full hover:bg-accent hover:text-primary transition-all transform hover:scale-105">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce-slow">
+            <a href="#about" class="text-light hover:text-accent transition-colors">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-20 left-10 w-8 h-8 rounded-full bg-accent opacity-30 animate-float"></div>
+        <div class="absolute top-1/3 right-20 w-12 h-12 rounded-full bg-light opacity-20 animate-float-reverse"></div>
+        <div class="absolute bottom-1/4 left-1/4 w-10 h-10 rounded-full bg-pale opacity-20 animate-spin-slow"></div>
+        <div class="absolute top-1/2 right-1/3 w-6 h-6 rounded-full bg-accent opacity-40 animate-pulse-slow"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-secondary relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-serif mb-4 relative inline-block">
+                    <span class="relative z-10">About Me</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-2 bg-accent opacity-60 z-0"></span>
+                </h2>
+                <p class="text-light max-w-2xl mx-auto">Get to know the person behind the code</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/3 relative">
+                    <div class="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden border-4 border-accent shadow-xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                        <!-- Placeholder for your photo -->
+                        <img src="https://instagram.fdyu5-1.fna.fbcdn.net/v/t1.15752-9/506784000_3312836448855322_6150422684584351888_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=110&ccb=1-7&_nc_sid=0024fc&_nc_ohc=oq9rH6otiqwQ7kNvwE65cN8&_nc_oc=AdlUQ_zyFlHB4FGLtXIzns29EbUuiREwXxIwKpRBGVB7djlWWG8--I3l2_q0wXMBIzg&_nc_zt=23&_nc_ht=instagram.fdyu5-1.fna&oh=03_Q7cD2gFCjaH_Hs5zT7w90sJY0q4Q1okdQgacaZcMDjoJeOkTOw&oe=687DD7E2" alt="Behzod" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <div class="absolute -bottom-6 -right-6 bg-primary p-4 rounded-lg shadow-lg border border-light transform rotate-6 hover:rotate-0 transition-transform duration-300">
+                        <div class="text-center">
+                            <p class="text-4xl font-bold text-accent">3+</p>
+                            <p class="text-sm text-light">Years Experience</p>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-6 -left-6 bg-primary p-4 rounded-lg shadow-lg border border-light transform -rotate-6 hover:rotate-0 transition-transform duration-300">
+                        <div class="text-center">
+                            <p class="text-4xl font-bold text-accent">20+</p>
+                            <p class="text-sm text-light">Projects Completed</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-2/3">
+                    <h3 class="text-2xl md:text-3xl font-bold font-serif mb-6 text-accent">Who am I?</h3>
+                    
+                    <div class="space-y-4 text-light mb-8">
+                        <p>Hello! I'm Behzod, also known as Felxawv in the digital world. I'm a passionate programmer and developer with a keen eye for detail and a love for creating efficient, beautiful digital solutions.</p>
+                        <p>My journey in programming began several years ago when I discovered the power of turning ideas into reality through code. Since then, I've been on an exciting path of continuous learning and growth.</p>
+                        <p>When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying the outdoors to recharge my creative energy.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="bg-primary bg-opacity-50 p-4 rounded-lg border border-light border-opacity-20 hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center mr-4">
+                                    <i class="fas fa-code text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Clean Code</p>
+                                    <p class="text-xs text-light">Efficient & Readable</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-primary bg-opacity-50 p-4 rounded-lg border border-light border-opacity-20 hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center mr-4">
+                                    <i class="fas fa-mobile-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Responsive</p>
+                                    <p class="text-xs text-light">All Devices</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-primary bg-opacity-50 p-4 rounded-lg border border-light border-opacity-20 hover:border-accent transition-colors">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center mr-4">
+                                    <i class="fas fa-rocket text-primary"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold">Fast</p>
+                                    <p class="text-xs text-light">Performance</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-20 right-10 w-16 h-16 rounded-full bg-accent opacity-10 animate-float"></div>
+        <div class="absolute bottom-20 left-10 w-20 h-20 rounded-full bg-light opacity-10 animate-float-reverse"></div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-primary relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-serif mb-4 relative inline-block">
+                    <span class="relative z-10">My Skills</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-2 bg-accent opacity-60 z-0"></span>
+                </h2>
+                <p class="text-light max-w-2xl mx-auto">Technologies I work with and my proficiency levels</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold font-serif mb-6 text-accent">Technical Skills</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">HTML/CSS</span>
+                                <span class="text-light">95%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">JavaScript</span>
+                                <span class="text-light">90%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Pyhton</span>
+                                <span class="text-light">60%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 60%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Node.js</span>
+                                <span class="text-light">35%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 35%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold font-serif mb-6 text-accent">Professional Skills</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Problem Solving</span>
+                                <span class="text-light">95%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Teamwork</span>
+                                <span class="text-light">90%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Creativity</span>
+                                <span class="text-light">88%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Communication</span>
+                                <span class="text-light">85%</span>
+                            </div>
+                            <div class="w-full bg-secondary rounded-full h-2.5">
+                                <div class="skill-bar bg-accent h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold font-serif mb-8 text-center text-accent">Technologies I Use</h3>
+                
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div class="tech-icon group">
+                        <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center transform group-hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                            <i class="fab fa-html5 text-4xl text-orange-500"></i>
+                        </div>
+                        <p class="text-center mt-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">HTML5</p>
+                    </div>
+                    
+                    <div class="tech-icon group">
+                        <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center transform group-hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                            <i class="fab fa-css3-alt text-4xl text-blue-500"></i>
+                        </div>
+                        <p class="text-center mt-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">CSS3</p>
+                    </div>
+                    
+                    <div class="tech-icon group">
+                        <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center transform group-hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                            <i class="fab fa-js text-4xl text-yellow-400"></i>
+                        </div>
+                        <p class="text-center mt-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">JavaScript</p>
+                    </div>
+                    
+                    <div class="tech-icon group">
+                        <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center transform group-hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                            <i class="fab fa-python text-4xl text-blue-400"></i>
+                        </div>
+                        <p class="text-center mt-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">Python</p>
+                    </div>
+                    
+                    <div class="tech-icon group">
+                        <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center transform group-hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                            <i class="fab fa-node-js text-4xl text-green-500"></i>
+                        </div>
+                        <p class="text-center mt-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">Node.js</p>
+                    </div>
+                    
+                    <div class="tech-icon group">
+                        <div class="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center transform group-hover:-translate-y-2 transition-transform duration-300 shadow-md">
+                            <i class="fab fa-git-alt text-4xl text-orange-600"></i>
+                        </div>
+                        <p class="text-center mt-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">Git</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-1/3 left-10 w-12 h-12 rounded-full bg-accent opacity-10 animate-float"></div>
+        <div class="absolute bottom-1/4 right-10 w-16 h-16 rounded-full bg-light opacity-10 animate-float-reverse"></div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-secondary relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-serif mb-4 relative inline-block">
+                    <span class="relative z-10">My Portfolio</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-2 bg-accent opacity-60 z-0"></span>
+                </h2>
+                <p class="text-light max-w-2xl mx-auto">A selection of my recent projects</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card relative rounded-xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-500 h-80">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 1" class="w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transform translate-y-4 transition-all duration-300">
+                        <h3 class="text-2xl font-bold font-serif text-accent mb-2">E-commerce Platform</h3>
+                        <p class="text-light text-center mb-4">A full-featured online store with payment integration and inventory management.</p>
+                        <div class="flex space-x-2">
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">React</span>
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">Node.js</span>
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">MongoDB</span>
+                        </div>
+                        <a href="#" class="mt-4 px-4 py-2 bg-accent text-primary font-bold rounded-full text-sm hover:bg-light transition-colors">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card relative rounded-xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-500 h-80">
+                    <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Project 2" class="w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transform translate-y-4 transition-all duration-300">
+                        <h3 class="text-2xl font-bold font-serif text-accent mb-2">Task Management App</h3>
+                        <p class="text-light text-center mb-4">Productivity application for teams to collaborate on projects and tasks.</p>
+                        <div class="flex space-x-2">
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">Vue.js</span>
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">Firebase</span>
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">Tailwind</span>
+                        </div>
+                        <a href="#" class="mt-4 px-4 py-2 bg-accent text-primary font-bold rounded-full text-sm hover:bg-light transition-colors">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card relative rounded-xl overflow-hidden shadow-xl transform hover:scale-105 transition-transform duration-500 h-80">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project 3" class="w-full h-full object-cover">
+                    <div class="project-overlay absolute inset-0 bg-primary bg-opacity-90 flex flex-col justify-center items-center p-6 opacity-0 transform translate-y-4 transition-all duration-300">
+                        <h3 class="text-2xl font-bold font-serif text-accent mb-2">Portfolio Website</h3>
+                        <p class="text-light text-center mb-4">Custom portfolio website design with animations and responsive layout.</p>
+                        <div class="flex space-x-2">
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">HTML/CSS</span>
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">JavaScript</span>
+                            <span class="px-3 py-1 bg-accent text-primary text-xs font-bold rounded-full">GSAP</span>
+                        </div>
+                        <a href="#" class="mt-4 px-4 py-2 bg-accent text-primary font-bold rounded-full text-sm hover:bg-light transition-colors">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border-2 border-accent text-accent font-bold rounded-full hover:bg-accent hover:text-primary transition-all transform hover:scale-105">
+                    View All Projects
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-20 right-10 w-16 h-16 rounded-full bg-accent opacity-10 animate-float"></div>
+        <div class="absolute bottom-20 left-10 w-20 h-20 rounded-full bg-light opacity-10 animate-float-reverse"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-primary relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold font-serif mb-4 relative inline-block">
+                    <span class="relative z-10">Get In Touch</span>
+                    <span class="absolute -bottom-2 left-0 w-full h-2 bg-accent opacity-60 z-0"></span>
+                </h2>
+                <p class="text-light max-w-2xl mx-auto">Have a project in mind or want to collaborate? Let's talk!</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-light mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 bg-secondary border border-light border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-pale placeholder-light placeholder-opacity-50 transition-all" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-light mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 bg-secondary border border-light border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-pale placeholder-light placeholder-opacity-50 transition-all" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-light mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 bg-secondary border border-light border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-pale placeholder-light placeholder-opacity-50 transition-all" placeholder="Project Inquiry">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-light mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 bg-secondary border border-light border-opacity-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-pale placeholder-light placeholder-opacity-50 transition-all" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-4 bg-accent text-primary font-bold rounded-lg hover:bg-secondary hover:text-pale transition-all transform hover:scale-[1.01] shadow-lg">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-secondary bg-opacity-50 p-8 rounded-xl border border-light border-opacity-20 h-full">
+                        <h3 class="text-2xl font-bold font-serif mb-6 text-accent">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center mr-4 mt-1">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Email</h4>
+                                    <a href="mailto:behzodbb0510@gmail.com" class="text-light hover:text-accent transition-colors">behzodbb0510@gmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center mr-4 mt-1">
+                                    <i class="fas fa-phone-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Phone</h4>
+                                    <a href="tel:+1234567890" class="text-light hover:text-accent transition-colors">+992 40-004-5773</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Location</h4>
+                                    <p class="text-light">Dushanbe, Tajikistan</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-12">
+                            <h4 class="font-bold font-serif text-xl mb-4 text-accent">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-light hover:bg-accent hover:text-primary transition-colors border border-light border-opacity-20">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-light hover:bg-accent hover:text-primary transition-colors border border-light border-opacity-20">
+                                    <i class="fab fa-telegram text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-light hover:bg-accent hover:text-primary transition-colors border border-light border-opacity-20">
+                                    <i class="fab fa-tiktok text-xl"></i>
+                                </a>
+                                <a href="#" class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-light hover:bg-accent hover:text-primary transition-colors border border-light border-opacity-20">
+                                    <i class="fab fa-whatsapp text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-1/3 left-10 w-12 h-12 rounded-full bg-accent opacity-10 animate-float"></div>
+        <div class="absolute bottom-1/4 right-10 w-16 h-16 rounded-full bg-light opacity-10 animate-float-reverse"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold font-serif gradient-text">Behzod<span class="text-accent">/</span>Felxawv</a>
+                    <p class="text-light mt-2">Turning ideas into digital reality</p>
+                </div>
+                
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="flex space-x-6 mb-4">
+                        <a href="#home" class="nav-link text-light hover:text-pale transition-colors">Home</a>
+                        <a href="#about" class="nav-link text-light hover:text-pale transition-colors">About</a>
+                        <a href="#skills" class="nav-link text-light hover:text-pale transition-colors">Skills</a>
+                        <a href="#portfolio" class="nav-link text-light hover:text-pale transition-colors">Portfolio</a>
+                        <a href="#contact" class="nav-link text-light hover:text-pale transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-accent text-primary flex items-center justify-center shadow-lg transform transition-transform hover:scale-110 opacity-0 invisible">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+            
+            // Animate skill bars on scroll
+            animateSkillBars();
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Back to top button
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.remove('opacity-0', 'invisible');
+                backToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopBtn.classList.remove('opacity-100', 'visible');
+                backToTopBtn.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate elements when they come into view
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-fade-in');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        
+        // Initial check in case elements are already in view
+        animateOnScroll();
+
+        // Animate skill bars when they come into view
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            skillBars.forEach(bar => {
+                observer.observe(bar);
+            });
+        }
+
+        // Form submission
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Here you would typically send the form data to a server
+                // For demo purposes, we'll just show an alert
+                alert('Thank you for your message! I will get back to you soon.');
+                this.reset();
+            });
+        }
+
+        // Project card hover effect
+        const projectCards = document.querySelectorAll('.project-card');
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.project-overlay').style.opacity = '1';
+                this.querySelector('.project-overlay').style.transform = 'translateY(0)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.project-overlay').style.opacity = '0';
+                this.querySelector('.project-overlay').style.transform = 'translateY(20px)';
+            });
+        });
+
+        // Tech icon hover effect
+        const techIcons = document.querySelectorAll('.tech-icon');
+        techIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.querySelector('p').style.opacity = '1';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.querySelector('p').style.opacity = '0';
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            const scrollPosition = window.pageYOffset;
+            
+            parallaxElements.forEach(element => {
+                element.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+            });
+        });
+    </script>
+</body>
+</html>
